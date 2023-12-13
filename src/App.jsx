@@ -7,6 +7,7 @@ import Test from "./components/Test.jsx";
 import TestApi from "./components/TestApi.jsx";
 import TabButton from "./TabButton.jsx";
 import { EXAMPLES } from "./data.js";
+import TestProps from "./components/TestProps.jsx";
 
 function App() {
     const [selectedTopic, setSelectedTopic] = useState();
@@ -86,6 +87,12 @@ function App() {
                     <h2>Call api</h2>
                     <div id="tab-content">
                         <TestApi />
+                    </div>
+                </section>
+                <section>
+                    <h2>Test Props</h2>
+                    <div id="tab-content">
+                        <TestProps title="Titre de la page passé par une props" />
                     </div>
                 </section>
             </main>

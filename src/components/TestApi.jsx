@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react"; // permet de manipuler de variables =>
-
+import Pagination from "@mui/material/pagination";
 import axios from "axios";
 
 const apiUrl = "https://dumbstockapi.com/stock?exchanges=NYSE";
@@ -10,8 +10,10 @@ const TestApi = () => {
     const [isClicked, setIsCliked] = useState(false);
 
     const [getData, setGetData] = useState(null);
-
     const [loading, setLoading] = useState(true);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    //const [total, setTotal] = useState(getData.lenght);
 
     // fonction qui fait le fetch
     //=> le fetch s'execute uniquement au clique sur le bouton
@@ -33,6 +35,10 @@ const TestApi = () => {
         console.log("isClicked", isClicked);
     };
 
+    function handleChange(value) {
+        console.log(value);
+    }
+
     useEffect(() => {
         // async permet d'executer la tache en arriere plan car ça prend du temps
         // ne bloque pas l'affichge du rest
@@ -43,7 +49,7 @@ const TestApi = () => {
                 const response = await axios.get(apiUrl);
                 //console.log("response", response);
                 setGetData(response.data);
-                console.log("response.data", response.data);
+                //console.log("response.data", response.data);
                 setLoading(false); // chargement terminé
             } catch (error) {
                 // capture de l'erreur
@@ -80,10 +86,15 @@ const TestApi = () => {
                     })} */}
 
                 {getData &&
-                    getData.map((item) => (
-                        <li key={item.ticker}>{item.name}</li>
-                    ))}
+                    getData
+                        .slice(0, 20)
+                        .map((item) => <li key={item.ticker}>{item.name}</li>)}
             </ul>
+            <Pagination
+                count={10}
+                color="primary"
+                onChange={(e) => handleChange(e.target.value)}
+            ></Pagination>
             <button onClick={() => callApi()}>Call API Button</button>
             <button onClick={() => clicked()}>Execute UseEffect</button>
         </div>
