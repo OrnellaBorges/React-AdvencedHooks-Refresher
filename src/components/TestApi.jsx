@@ -50,7 +50,7 @@ const TestApi = () => {
                 console.log("error", error);
                 setLoading(false); //chargement terminé
             } finally {
-                setLoading(false); //chargement terminé
+                setLoading(false); //chargement terminé,c s, vld
             }
         };
 
